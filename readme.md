@@ -4,12 +4,14 @@
 - A file path for the output of the process , on Windows this might be C:\data\rrs\out 
   on Mac/Linux it will be /home/user/data/rrs/out or similar where `user` is your account name
 
-### How to run this script (Weirdly have to manually install a few packages also)
-   pip install -r requirements.txt
-   pip install fhirclient fhirpathpy numpy 
-   virtualenv env
-   source env/bin/activate
-   python main.py -i <S2S map file Catalogue to SCT> -o <output folder>
+### How to install this script (Weirdly have to manually install a few packages also)
+   `pip install -r requirements.txt`
+   `pip install fhirclient fhirpathpy numpy`
+   `virtualenv env`
+   `source env/bin/activate`
+
+### How to run this script
+   `python main.py -i <S2S map file Catalogue to SCT> -o <output folder>`
 
 ### Unit testing
    run the unit tests in test.py to ensure everything is setup correcty
@@ -18,4 +20,4 @@
 
 ### Regenerating the requirements.txt file
 If you change this code and want to regenerate the requirements use this:
-   pip freeze >| requirements.txt
+   `pip freeze >| requirements.txt`
