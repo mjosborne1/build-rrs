@@ -1,0 +1,10 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+*.pyc
+
+# Environment folders
+env/
+venv/
