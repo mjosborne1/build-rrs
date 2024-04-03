@@ -1,0 +1,73 @@
+{
+    "resourceType": "ConceptMap",
+    "id": "radiology-services-map-1",
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n      <h2>Concept Map (http://ranzcr.com/fhir/ConceptMap/concept-map-radiology-services-1)</h2>\n</div>"
+    },
+    "url": "http://ranzcr.com/fhir/ConceptMap/radiology-services-map-1",
+    "version": "1.0.0",
+    "name": "RadiologyServicesConceptMap",
+    "title": "Radiology Services Concept Map",
+    "status": "active",
+    "experimental": false,
+    "date": "2023-04-02",
+    "publisher": "Sparked FHIR Accelerator",
+    "contact": [
+        {
+          "telecom": [
+            {
+              "system": "email",
+              "value": "fhir@csiro.au"
+            }
+          ]
+        }
+      ],
+    "copyright": "Copyright © 2023 Royal Australian and New Zealand College of Radiologists- All rights reserved. This resource includes SNOMED Clinical Terms™ (SNOMED CT®) which is used by permission of the International Health Terminology Standards Development Organisation (IHTSDO). All rights reserved. SNOMED CT®, was originally created by The College of American Pathologists. “SNOMED” and “SNOMED CT” are registered trademarks of the IHTSDO. \n\nThe rights to use and implement or implementation of SNOMED CT content are limited to the extent it is necessary to allow for the end use of this material.  No further rights are granted in respect of the International Release and no further use of any SNOMED CT content by any other party is permitted.",
+    "description": "Radiology Referral Set Concept map to SNOMED CT Procedure",
+    "purpose": "To illustrate mapping pre-coordinated concepts to post coordinated concepts",
+    "sourceUri": [
+                "http://ranzcr.com/fhir/ValueSet/radiology-procedure-1",
+                "http://ranzcr.com/fhir/ValueSet/radiology-service-bodysites-1",
+                "http://ranzcr.com/fhir/ValueSet/radiology-laterality-1",
+                "http://ranzcr.com/fhir/ValueSet/radiology-contrast-1"
+             ],
+    "targetUri":  "http://ranzcr.com/fhir/ValueSet/radiology-services-1",
+    "group": [
+      {
+        "source": "http://snomed.info/sct",
+        "target": "http://snomed.info/sct",
+        "element": [
+          {
+            "code": "77477000",
+            "display": "Computed Tomography",
+            "target": [
+              {
+                "code": "426817008",
+                "display": "CT left ankle",                
+                "equivalence": "equivalent"
+              }
+            ],
+            "dependsOn": [
+              {
+                "property": "123037004 | Body structure |",
+                "system": "http://snomed.info/sct",
+                "value": "344001 | Ankle region structure |",
+                "display": "Ankle region structure"
+              },
+              {
+                "property": "272741003 | laterality |",
+                "system": "http://snomed.info/sct",
+                "value": "7771000 | Left |",
+                "display": "Left"
+              }
+            ]
+          }
+        ],
+        "unmapped": {
+          "mode": "other-map",
+          "url": "http://example.org/fhir/ConceptMap/map2"
+        }
+      }
+    ]
+  }

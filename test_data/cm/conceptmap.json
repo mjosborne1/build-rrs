@@ -1,0 +1,675 @@
+{
+  "description": "Radiology Referral Set Concept map to SNOMED CT Procedure",
+  "group": [
+    {
+      "element": [
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "168702005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "426721006",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "425703002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "426420006",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3771000087100",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "4111000087108",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3761000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3531000087108",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3991000087103",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3521000087106",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "431326009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "34227000",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "396207002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "55501000",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "241526005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "241547009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "429931008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "429862006",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "429873004",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "241536002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "417986000",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77477000",
+          "target": [
+            {
+              "code": "16332841000119106",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "816077007",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241621009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "2690005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "75691003",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241622002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241625000",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "426252008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241620005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "431627008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241623007",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "168566009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "241647000",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "113091000",
+          "target": [
+            {
+              "code": "446063006",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "45036003",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "24848001",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "268445003",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "446045006",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "961000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "1571000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "951000087106",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "303917008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "241462009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "713021002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "19731001",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "866200001",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "11521000087108",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "13301000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "11581000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "303917008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "40701008",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "105377009",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "169250003",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "16310003",
+          "target": [
+            {
+              "code": "241487002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "27483000",
+          "target": [
+            {
+              "code": "168821007",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77343006",
+          "target": [
+            {
+              "code": "33367005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3651000087100",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "4051000087106",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3641000087103",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "77343006",
+          "target": [
+            {
+              "code": "308749001",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "71651007",
+          "target": [
+            {
+              "code": "572701000119102",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "71651007",
+          "target": [
+            {
+              "code": "566571000119105",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "71651007",
+          "target": [
+            {
+              "code": "43204002",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3631000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "4041000087108",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3621000087107",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3831000087105",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "4141000087109",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "3821000087108",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "426311001",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "426581005",
+              "equivalence": "equivalent"
+            }
+          ]
+        },
+        {
+          "code": "168537006",
+          "target": [
+            {
+              "code": "426908009",
+              "equivalence": "equivalent"
+            }
+          ]
+        }
+      ],
+      "source": "http://snomed.info/sct",
+      "target": "http://snomed.info/sct"
+    }
+  ],
+  "name": "RadiologyServicesConceptMap",
+  "publisher": "Sparked FHIR Accelerator",
+  "status": "active",
+  "title": "Radiology Services Concept Map",
+  "url": "http://ranzcr.com/fhir/ConceptMap/radiology-services-map-1",
+  "version": "1.0.0",
+  "resourceType": "ConceptMap"
+}
