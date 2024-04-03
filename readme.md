@@ -5,13 +5,13 @@
   on Mac/Linux it will be /home/user/data/rrs/out or similar where `user` is your account name
 
 ### How to install this script (Weirdly have to manually install a few packages also)
-   `pip install -r requirements.txt`
-   `pip install fhirclient fhirpathpy numpy`
-   `virtualenv env`
-   `source env/bin/activate`
+   * `pip install -r requirements.txt`
+   * `pip install fhirclient fhirpathpy numpy`
+   * `virtualenv env`
+   * `source env/bin/activate`
 
 ### How to run this script
-   `python main.py -i <S2S map file Catalogue to SCT> -o <output folder>`
+   * `python main.py -i <S2S map file Catalogue to SCT> -o <output folder>`
 
 ### Unit testing
    run the unit tests in test.py to ensure everything is setup correcty
