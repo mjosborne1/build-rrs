@@ -1,5 +1,7 @@
 {
+  "copyright": "Copyright \u00a9 2023 Royal Australian and New Zealand College of Radiologists- All rights reserved. This resource includes SNOMED Clinical Terms\u2122 (SNOMED CT\u00ae) which is used by permission of the International Health Terminology Standards Development Organisation (IHTSDO). All rights reserved. SNOMED CT\u00ae, was originally created by The College of American Pathologists. \u201cSNOMED\u201d and \u201cSNOMED CT\u201d are registered trademarks of the IHTSDO. \n\nThe rights to use and implement or implementation of SNOMED CT content are limited to the extent it is necessary to allow for the end use of this material.  No further rights are granted in respect of the International Release and no further use of any SNOMED CT content by any other party is permitted.",
   "description": "Radiology Referral Set Concept map to SNOMED CT Procedure",
+  "experimental": false,
   "group": [
     {
       "element": [
@@ -10,7 +12,7 @@
               "code": "168702005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "818982008"
                 }
@@ -26,7 +28,7 @@
               "code": "426721006",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "419605007"
                 },
@@ -47,7 +49,7 @@
               "code": "425703002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "419605007"
                 },
@@ -68,7 +70,7 @@
               "code": "426420006",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "419605007"
                 },
@@ -89,7 +91,7 @@
               "code": "3771000087100",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "16982005"
                 },
@@ -110,7 +112,7 @@
               "code": "4111000087108",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "16982005"
                 },
@@ -131,7 +133,7 @@
               "code": "3761000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "16982005"
                 },
@@ -152,7 +154,7 @@
               "code": "3531000087108",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "127949000"
                 },
@@ -173,7 +175,7 @@
               "code": "3991000087103",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "127949000"
                 },
@@ -194,7 +196,7 @@
               "code": "3521000087106",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "127949000"
                 },
@@ -215,7 +217,7 @@
               "code": "431326009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "45048000"
                 },
@@ -236,7 +238,7 @@
               "code": "34227000",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "12738006"
                 }
@@ -252,7 +254,7 @@
               "code": "396207002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "12738006"
                 },
@@ -273,7 +275,7 @@
               "code": "55501000",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "64033007"
                 }
@@ -289,7 +291,7 @@
               "code": "241526005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "2095001"
                 }
@@ -305,7 +307,7 @@
               "code": "241547009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "80891009"
                 }
@@ -321,7 +323,7 @@
               "code": "429931008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "64033007"
                 },
@@ -342,7 +344,7 @@
               "code": "429862006",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "10200004"
                 },
@@ -363,7 +365,7 @@
               "code": "429873004",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "15776009"
                 },
@@ -384,7 +386,7 @@
               "code": "241536002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "4596009"
                 }
@@ -400,7 +402,7 @@
               "code": "417986000",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "69105007"
                 },
@@ -421,7 +423,7 @@
               "code": "16332841000119106",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "81040000"
                 },
@@ -442,7 +444,7 @@
               "code": "816077007",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "12738006"
                 }
@@ -458,7 +460,7 @@
               "code": "241621009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "818981001"
                 }
@@ -474,7 +476,7 @@
               "code": "2690005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "816092008"
                 }
@@ -490,7 +492,7 @@
               "code": "75691003",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "41216001"
                 }
@@ -506,7 +508,7 @@
               "code": "241622002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "10200004"
                 }
@@ -522,7 +524,7 @@
               "code": "241625000",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "15776009"
                 }
@@ -538,7 +540,7 @@
               "code": "426252008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "38266002"
                 }
@@ -554,7 +556,7 @@
               "code": "241620005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "80891009"
                 }
@@ -570,7 +572,7 @@
               "code": "431627008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "30315005"
                 }
@@ -586,7 +588,7 @@
               "code": "241623007",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "23451007"
                 }
@@ -602,7 +604,7 @@
               "code": "168566009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "2095001"
                 }
@@ -618,7 +620,7 @@
               "code": "241647000",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "1141986006"
                 }
@@ -634,7 +636,7 @@
               "code": "446063006",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "113197003"
                 }
@@ -650,7 +652,7 @@
               "code": "45036003",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "818983003"
                 }
@@ -666,7 +668,7 @@
               "code": "24848001",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "12921003"
                 }
@@ -700,7 +702,7 @@
               "code": "961000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -721,7 +723,7 @@
               "code": "1571000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -742,7 +744,7 @@
               "code": "951000087106",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -763,7 +765,7 @@
               "code": "303917008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "431938005"
                 }
@@ -779,7 +781,7 @@
               "code": "241462009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "7832008"
                 }
@@ -795,7 +797,7 @@
               "code": "713021002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "12921003"
                 }
@@ -811,7 +813,7 @@
               "code": "19731001",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "81745001"
                 }
@@ -827,7 +829,7 @@
               "code": "866200001",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "1290032005"
                 },
@@ -848,7 +850,7 @@
               "code": "11521000087108",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "64033007"
                 },
@@ -869,7 +871,7 @@
               "code": "13301000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "64033007"
                 },
@@ -890,7 +892,7 @@
               "code": "11581000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "64033007"
                 },
@@ -911,7 +913,7 @@
               "code": "303917008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "431938005"
                 }
@@ -927,7 +929,7 @@
               "code": "40701008",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "80891009"
                 }
@@ -943,7 +945,7 @@
               "code": "105377009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "10200004"
                 }
@@ -959,7 +961,7 @@
               "code": "169250003",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "28231008"
                 }
@@ -975,7 +977,7 @@
               "code": "241487002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "41216001"
                 }
@@ -991,7 +993,7 @@
               "code": "168821007",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "32849002"
                 },
@@ -1012,7 +1014,7 @@
               "code": "33367005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "41801008"
                 }
@@ -1028,7 +1030,7 @@
               "code": "3651000087100",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "29836001"
                 },
@@ -1049,7 +1051,7 @@
               "code": "4051000087106",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "29836001"
                 },
@@ -1070,7 +1072,7 @@
               "code": "3641000087103",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "29836001"
                 },
@@ -1091,7 +1093,7 @@
               "code": "308749001",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "86570000"
                 }
@@ -1107,7 +1109,7 @@
               "code": "572701000119102",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -1128,7 +1130,7 @@
               "code": "566571000119105",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -1149,7 +1151,7 @@
               "code": "43204002",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "76752008"
                 },
@@ -1170,7 +1172,7 @@
               "code": "3631000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "85562004"
                 },
@@ -1191,7 +1193,7 @@
               "code": "4041000087108",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "85562004"
                 },
@@ -1212,7 +1214,7 @@
               "code": "3621000087107",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "85562004"
                 },
@@ -1233,7 +1235,7 @@
               "code": "3831000087105",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "8205005"
                 },
@@ -1254,7 +1256,7 @@
               "code": "4141000087109",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "8205005"
                 },
@@ -1275,7 +1277,7 @@
               "code": "3821000087108",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "8205005"
                 },
@@ -1296,7 +1298,7 @@
               "code": "426311001",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "419605007"
                 },
@@ -1317,7 +1319,7 @@
               "code": "426581005",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "419605007"
                 },
@@ -1338,7 +1340,7 @@
               "code": "426908009",
               "dependsOn": [
                 {
-                  "property": "123037004",
+                  "property": "405813007",
                   "system": "http://snomed.info/sct",
                   "value": "56459004"
                 },

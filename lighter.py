@@ -2,42 +2,44 @@
    fhir lighter library for building the fhir artefacts from the TSV input file 
 """
 
-""" from fhir.resources.valueset import ValueSet
-from fhir.resources.conceptmap import ConceptMap """
-
 import json
 import numpy as np
 import pandas as pd
 from fhirclient.models import valueset,conceptmap
+from fhirclient import client
 from helpers import path_exists 
 import os
 
-
-def create_filepath(outdir):
+## create_vs_filepath
+#     Create and return an array of valueset file names
+def create_vs_filepath(outdir):
     if not path_exists(outdir):       
         return []    
-    filepath = [              
-        os.path.join(outdir,"service.json"),
-        os.path.join(outdir,"procedure.json"),
-        os.path.join(outdir,"bodysite.json"),
-        os.path.join(outdir,"laterality.json")         
+    vs_filepath = [              
+        os.path.join(outdir,"ValueSet-Service.json"),
+        os.path.join(outdir,"ValueSet-Procedure.json"),
+        os.path.join(outdir,"ValueSet-Bodysite.json"),
+        os.path.join(outdir,"ValueSet-Laterality.json"),         
+        os.path.join(outdir,"ValueSet-Contrast.json")         
     ]    
-    return filepath
+    return vs_filepath
 
-
+## get_template_files
+#     Create and return an array of ValueSet template files
 def get_template_files():
-    filepath = [              
+    template_filepath = [              
         os.path.join('.','templates','ValueSet-radiology-services-template.json'),
         os.path.join('.','templates','ValueSet-radiology-procedure-template.json'),
         os.path.join('.','templates','ValueSet-radiology-body-structure-template.json'),
-        os.path.join('.','templates','ValueSet-radiology-laterality-template.json')         
+        os.path.join('.','templates','ValueSet-radiology-laterality-template.json'),     
+        os.path.join('.','templates','ValueSet-radiology-contrast-template.json')         
     ]    
-    return filepath
+    return template_filepath
 
 ## check_numeric
 #    return true if the pandas frame is numeric and not a float else return false
-def check_numeric(value):
-    if pd.isna(value) or not pd.isnull(value):
+def is_numeric(value):
+    if pd.isna(value):
         return False
     elif isinstance(value, np.float64):
         print("value is a float {0}".format(value))
@@ -46,7 +48,16 @@ def check_numeric(value):
         return True
     
 
-def build_valueset(col,template,infile,outfile):
+def create_client(endpoint):
+    settings = {
+        'app_id': 'build-rrs',
+        'api_base': endpoint
+    }
+    smart = client.FHIRClient(settings=settings)
+    return smart
+   
+
+def build_valueset(col,template,infile,outfile,smart):
     """
     Build a FHIR ValueSet based on the input file, template file and output to outfile
     col is an integer that describes which column 0..3 in the input file to work from
@@ -62,13 +73,17 @@ def build_valueset(col,template,infile,outfile):
 
     # Create a FHIR ValueSet resource object
     vs = valueset.ValueSet()
+    # vs.id = meta.get('id')
     vs.status = meta.get('status')
     vs.name = meta.get('name')
     vs.title = meta.get('title')
     vs.description = meta.get('description')
     vs.publisher = meta.get('publisher')
     vs.version = meta.get('version')
-    vs.url = meta.get('url')    
+    vs.url = meta.get('url')
+#    vs.contact = meta.get('contact')
+    vs.copyright = meta.get('copyright')
+    vs.experimental = meta.get('experimental')
 
     # Add the concepts to the ValueSet
     vs.compose = valueset.ValueSetCompose()
@@ -82,16 +97,28 @@ def build_valueset(col,template,infile,outfile):
             include_concept.code = str(concept)      
             vs.compose.include[0].concept.append(include_concept)
 
-    # Export the Valueset to file
+    # Export the Valueset to file for manual review
     with open(outfile, "w") as f:
         json.dump(vs.as_json(), f, indent=2)
-    
     # Cleanup
-    df.drop(df.index, inplace=True) 
+    df.drop(df.index, inplace=True)
+    if smart != None:
+        response = vs.create(smart.server)
+        if response:
+            return 201
+        else:
+            return 500
+    else:
+        return 200
 
 
-def build_concept_map(rrsfile,outdir):
-    mapfile = os.path.join(outdir,"conceptmap.json")
+
+def build_concept_map(rrsfile,outdir,smart):
+    """
+    Build a concept map of procedures and other qualifiers in a property/dependsOn style 
+    to a radiology service code (fully defined)
+    """
+    mapfile = os.path.join(outdir,"ConceptMap_RadiologyServices.json")
     df=pd.read_csv(rrsfile,sep='\t',dtype={'Service':str,'Procedure':str,'Site':str,'Laterality':str,'Contrast':str})
     # Read the FHIR ConceptMap JSON file into a Python dictionary
     template =  os.path.join('.','templates','ConceptMap-radiology-services-template.json')
@@ -100,6 +127,7 @@ def build_concept_map(rrsfile,outdir):
        meta = json.load(f)
      # Create a FHIR ConceptMap resource object
     cm = conceptmap.ConceptMap()
+    #cm.id = meta.get('id')
     cm.status = meta.get('status')
     cm.name = meta.get('name')
     cm.title = meta.get('title')
@@ -107,6 +135,9 @@ def build_concept_map(rrsfile,outdir):
     cm.publisher = meta.get('publisher')
     cm.version = meta.get('version')
     cm.url = meta.get('url')
+#    cm.contact = meta.get('contact')
+    cm.copyright = meta.get('copyright')
+    cm.experimental = meta.get('experimental')
 
     # Add the map group rows 
     cm.group = [ conceptmap.ConceptMapGroup() ]
@@ -114,10 +145,10 @@ def build_concept_map(rrsfile,outdir):
     cm.group[0].target = "http://snomed.info/sct"
 
     # add map elements
-    #    0 : Service (Full code), 1: Procedure, 2: Site , 3: Laterality, 4: Contrast
+    #    0 : Service (Full code), 1: Procedure, 2: Site , 3: Laterality, 4: Contrast (yes/no)
     elements=[]
     for index, row in df.iterrows():
-        if check_numeric(row['Service']):
+        if not is_numeric(row['Service']):
             continue
         element = conceptmap.ConceptMapGroupElement()
         element.code = row['Procedure']
@@ -126,41 +157,58 @@ def build_concept_map(rrsfile,outdir):
         element.target[0].equivalence = "equivalent"
         # Check if the subsequent fields contain digits
         idx = 0
-        if check_numeric(row['Site']):
-            element.target[0].dependsOn = [conceptmap.ConceptMapGroupElementTargetDependsOn()]
-            element.target[0].dependsOn[idx].property = "123037004"  ## Body structure
-            element.target[0].dependsOn[idx].system = "http://snomed.info/sct"
-            element.target[0].dependsOn[idx].value = row['Site']
-            idx += 1
-        if check_numeric(row['Laterality']):
-            element.target[0].dependsOn = [conceptmap.ConceptMapGroupElementTargetDependsOn()]
-            element.target[0].dependsOn[idx].property = "272741003"  ## Body structure laterality
-            element.target[0].dependsOn[idx].system = "http://snomed.info/sct"
-            element.target[0].dependsOn[idx].value = row['Laterality']
-            idx += 1
-        if check_numeric(row['Contrast']):
-            element.target[0].dependsOn = [conceptmap.ConceptMapGroupElementTargetDependsOn()]
-            element.target[0].dependsOn[idx].property = "424361007"  ## Using substance - contrast
-            element.target[0].dependsOn[idx].system = "http://snomed.info/sct"
-            element.target[0].dependsOn[idx].value = row['Contrast']
+        if is_numeric(row['Site']):
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = "405813007"  ## Procedure site - direct
+            dep.system = "http://snomed.info/sct"
+            ## Body structure
+            dep.value = row['Site']
+            if not isinstance(element.target[0].dependsOn, list):
+                element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)
+        if is_numeric(row['Laterality']):
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = "272741003"  ## Body structure laterality
+            dep.system = "http://snomed.info/sct"
+            dep.value = row['Laterality']
+            if not isinstance(element.target[0].dependsOn, list):
+                element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)
+        if is_numeric(row['Contrast']):
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = "424361007"  ## yes or no value
+            dep.system = "http://snomed.info/sct"
+            dep.value = row['Contrast']
+            if not isinstance(element.target[0].dependsOn, list):
+                element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)
         elements.append(element)
     cm.group[0].element = elements
-  
-    # Dump the ConceptMap to file
+    # Dump the ConceptMap to file for manual review
     with open(mapfile, "w") as f:
         json.dump(cm.as_json(), f, indent=2)
-
     # Cleanup
     df.drop(df.index, inplace=True)
-
+    if smart != None:
+        response = cm.create(smart.server)
+        if response:
+            return 201
+        else:
+            return 500
+    else:
+        return 200
 
 ## Mainline
 ## Output the Valuesets and Conceptmap built from the RRS file    
-def run_main(rrsfile,outdir):
-    files=create_filepath(outdir)
-    #(pre_co,sep,procedure,sep,site,sep,lat,sep,contrast)
+def run_main(rrsfile,outdir,endpoint):
+    smart=None
+    if (endpoint != ""):
+         smart = create_client(endpoint)
+    # Note, the template file order must match the valueset file order
+    vs_files=create_vs_filepath(outdir)
     templates=get_template_files()
-    for col in range(0,4):
+    for col in range(0,5):
         print("{0} Processing template...{1}".format( col, templates[col]))
-        build_valueset(col,templates[col],rrsfile,files[col])
-    build_concept_map(rrsfile,outdir)
+        vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart)        
+    cm = build_concept_map(rrsfile,outdir,smart)
+   

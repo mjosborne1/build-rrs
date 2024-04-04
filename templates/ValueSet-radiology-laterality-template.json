@@ -4,7 +4,7 @@
   "name": "RadiologyLaterality",
   "id": "radiology-laterality-1.0.0",
   "title": "Radiology Laterality",
-  "description": "The Radiology Service Codes value set includes SNOMED CT that can be used to bind to Service.code in a ServiceRequest.",
+  "description": "The Radiology Body Structure Laterality value set includes SNOMED CT that can be used for body structure laterailty in a ServiceRequest.",
   "url": "http://ranzcr.com/fhir/ValueSet/radiology-laterality-1",
   "version": "1.0.0",  
   "experimental": false,

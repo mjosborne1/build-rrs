@@ -7,34 +7,21 @@ import os
 import json
 from helpers import init,path_exists
 
-baseurl="https://tx.ontoserver.csiro.au/fhir"
+baseurl="https://r4.ontoserver.csiro.au/fhir"
 system="http://snomed.info/sct"
-
-## Not Used
-## attribute_mapper : map qualifier to least specific category for service/modality for the Concept map and RRS
-## e.g. Plain x-ray imaging action (qualifier) maps to Plain x-ray (Procedure)
-## Except for site specific procedures (Mammo)
-## Last field is a description of the map
-def attribute_mapper(modality,site):
-  target = modality
-  # Important: Keep site co-ordinated map rows to the top so they evaluate before the generic case
-  map = [('312254007','','168537006','Plain X-Ray'),
-         ('278110001','','168537006','Radiographic imaging to X-Ray'),
-         ('312251004','','77477000','CT'),
-         ('702569007','','717193008','Cone Beam CT'),
-         ('312250003','','113091000','MRI'),
-         ('278292003','','16310003','Ultrasound imaging'),
-         ('312275004','','44491008','Fluoroscopy')
         
-## Site specific from here
-         ('278110001','76752008','71651007','Mammography'),
-         ('360037004','41801008','77343006','Angiography')
-         ]
-  for map_src,map_site,map_trg,desc in map:
-    if modality == map_src and (map_site == site or map_site == ""):
-      target = map_trg            
-  
-  return target  
+
+## Checkserver is up
+def check_terminology_server():
+  query = "{0}/metadata".format(baseurl)
+  command = ['curl', '-H "Accept: application/fhir+json" ' , '--location', query]
+  result = subprocess.run(command, capture_output=True)
+  data =  json.loads(result.stdout)
+  if data["status"] != "active":
+    return False
+  else:
+    return True
+
 
 
 ## Check for the existance of the file paths and return those in an array
@@ -139,6 +126,29 @@ def get_body_structures(laterality_name):
   body_structures = evaluate(data,"expansion.contains.code")    
   return body_structures
 
+##  get_bilateral_procedures
+##  Use an ECL expression to get all bilateral procedures
+##   return an array of SNOMED concept ids for bilateral Procedures
+def get_bilateral_procedures():
+  ecl="< 71388002 : 405813007 = (*: 272741003= (24028007)), 405813007 = (*: 272741003= (7771000))"
+  ecl_url='http://snomed.info/sct?fhir_vs=ecl/'+ecl
+  data = get_valueset(ecl_url)
+  bilateral = evaluate(data,"expansion.contains.code")
+  return bilateral
+
+
+
+##  get_procedures_without_contrast
+##  Use an ECL expression to get all `without contrast` procedures
+##   return an array of SNOMED concept ids for Procedures 'without contrast'
+def get_procedures_without_contrast():
+  ecl='< 71388002 {{ term = "without contrast" }}'
+  ecl_url='http://snomed.info/sct?fhir_vs=ecl/'+ecl
+  data = get_valueset(ecl_url)
+  procs = evaluate(data,"expansion.contains.code")
+  return procs
+
+
 ## get_snomed_props
 ## Expand the defining relationships (properties) of the SNOMED CT Concept
 ##   return a pandas data frame with the expanded properties 
@@ -148,7 +158,6 @@ def get_snomed_props(code):
   # Evaluate a fhirpath expression to get the Concept subproperties
   expr="Parameters.parameter.where(name=\'property\').part.where(name=\'subproperty\').part"
   parts = evaluate(data,expr)
-
   # Iterate through the subproperty parts to find the attribute values pairs (defining relationships)
   temp_list = []
   for elem in parts:    
@@ -187,14 +196,12 @@ def expand_body_site(df,left_list,right_list,fh):
     # Procedure / Modality
     if row["TypeId"] == 0:
       if pre_co == "":
-        pre_co = row["Concept"]       
+        pre_co = row["Concept"]
     # Body Site    
     if row["TypeId"] == 1:    
       concept = row["TargetValue"]
       # Extract the laterality, rule is it's bilateral if in both left and right sets.    
-      if (concept in left_list) and (concept in right_list):
-        lat="51440002"
-      elif (concept in left_list):
+      if (concept in left_list):
         lat="7771000"
       elif (concept in right_list):
         lat="24028007"
@@ -204,14 +211,33 @@ def expand_body_site(df,left_list,right_list,fh):
          site_array=split_site(concept)
          if site_array:
             site=site_array[0]  
-    # Contrast  
+    # Contrast = yes
     if row["TypeId"] == 3:
-      contrast="263543005"
+      contrast="373066001"
+  # Fix any bilateral procedure lateralities
+  bilateral_procs = get_bilateral_procedures()
+  if pre_co in bilateral_procs:
+    lat="51440002"
   procedure = procedure_mapper(pre_co)
+  # Check for procedures stating no contrast
+  procs_without_contrast = get_procedures_without_contrast()
+  if pre_co in procs_without_contrast:
+    contrast="373067005"
   if procedure==pre_co:
     print("ERROR: Unable to determine base radiological procedure for code: "+pre_co)
   else:
-   fh.write("%s%s%s%s%s%s%s%s%s\n" % (pre_co,sep,procedure,sep,site,sep,lat,sep,contrast))
+   fh.write("%s%s%s%s%s%s%s%s%s\n" % (
+        pre_co.strip(),
+        sep,
+        procedure.strip(),
+        sep,
+        site.strip(),
+        sep,
+        lat.strip(),
+        sep,
+        contrast.strip()
+    )
+)
 
 """
 Mainline
@@ -219,6 +245,9 @@ Mainline
 
 def run_main(s2sfile,outdir):
   sep="\t"
+  if not check_terminology_server():
+    print("Cannot continue as {0} appears to be down. 😭".format(baseurl))
+    exit
   files=create_filepath(s2sfile,outdir)
   left_list=get_body_structures("left")
   right_list=get_body_structures("right")  

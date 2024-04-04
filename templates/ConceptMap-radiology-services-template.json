@@ -1,10 +1,6 @@
 {
     "resourceType": "ConceptMap",
-    "id": "radiology-services-map-1",
-    "text": {
-      "status": "generated",
-      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n      <h2>Concept Map (http://ranzcr.com/fhir/ConceptMap/concept-map-radiology-services-1)</h2>\n</div>"
-    },
+    "id": "radiology-services-concept-map-1",
     "url": "http://ranzcr.com/fhir/ConceptMap/radiology-services-map-1",
     "version": "1.0.0",
     "name": "RadiologyServicesConceptMap",

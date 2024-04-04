@@ -7,6 +7,10 @@ import os
 from fhirclient.models import valueset as vs
 from fhirpathpy import evaluate
 
+endpoint = 'https://r4.ontoserver.csiro.au/fhir'
+
+##infiledefault=os.path.join(homedir,"data","rrs","in","xray-test.tsv")
+
 class TestFetcher(unittest.TestCase):
     def test_get_valueset(self):
         """
@@ -18,7 +22,26 @@ class TestFetcher(unittest.TestCase):
         # Look for Structure of left zygomatic bone
         self.assertIn("787058006",data)
         # Check that an observation/finding concept is not in the data
-        self.assertNotIn("225403000",data)      
+        self.assertNotIn("225403000",data)
+    def test_get_bilateral_procedures(self):
+        """
+        Check the bilateral procedure function
+        """
+        # Check the bilateral procedure function
+        bilateral_procs = fetcher.get_bilateral_procedures()
+        # Look for X-ray of both ankles (procedure)
+        self.assertIn("425703002",bilateral_procs)
+        # Check that X-ray of left ankle (procedure) is not in the bilateral procs data
+        self.assertNotIn("426420006",bilateral_procs)
+    def test_get_procedures_without_contrast(self):
+        """
+        Check procedures without contrast function
+        """
+        procs = fetcher.get_procedures_without_contrast()
+        # Look for CT Abdo without contrast
+        self.assertIn("1187246003",procs)
+        # Check that CT Abdo is not in this list
+        self.assertNotIn("169070004",procs)
 
 
 class TestLighter(unittest.TestCase):  
@@ -28,11 +51,15 @@ class TestLighter(unittest.TestCase):
         Test that build_valueset creates a json file with a consistent concept
         """
         # Set up fhir client to test the ValueSet against a server
-
+        smart=None
+        if (endpoint != ""):
+            smart = lighter.create_client(endpoint)
         infile = os.path.join('.','test_data','rrs.txt')
         outfile = os.path.join('.','test_data','vs','service.json')
         template = os.path.join('.','templates','ValueSet-radiology-services-template.json')
-        lighter.build_valueset(0,template,infile,outfile)
+        status = lighter.build_valueset(0,template,infile,outfile,smart)
+        # Check that the ValueSet was created on the server
+        self.assertEqual(status,201)
         with open(outfile) as fh:
             data =  json.load(fh)
         
@@ -52,9 +79,14 @@ class TestLighter(unittest.TestCase):
         """
         Test that the concept map file builds correctly
         """
+        smart=None
+        if (endpoint != ""):
+            smart = lighter.create_client(endpoint)
         infile = os.path.join('.','test_data','rrs.txt')
         outdir=os.path.join('.','test_data','cm')
-        lighter.build_concept_map(infile,outdir)
+        status = lighter.build_concept_map(infile,outdir,smart)
+         # Check that the ValueSet was created on the server
+        self.assertEqual(status,201)
         outfile = os.path.join('.','test_data','cm','conceptmap.json')
         with open(outfile) as fh:
             data =  json.load(fh)
