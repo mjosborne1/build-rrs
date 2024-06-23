@@ -5,6 +5,12 @@ __pycache__/
 *.dylib
 *.pyc
 
+# vs code ignores
+launch.json
+
 # Environment folders
 env/
 venv/
+
+# other folders
+templates-ranzcr.com/

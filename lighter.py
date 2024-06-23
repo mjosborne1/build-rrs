@@ -118,6 +118,7 @@ def build_concept_map(rrsfile,outdir,smart):
     Build a concept map of procedures and other qualifiers in a property/dependsOn style 
     to a radiology service code (fully defined)
     """
+    print(f'...Building ConceptMap')
     mapfile = os.path.join(outdir,"ConceptMap_RadiologyServices.json")
     df=pd.read_csv(rrsfile,sep='\t',dtype={'Service':str,'Procedure':str,'Site':str,'Laterality':str,'Contrast':str})
     # Read the FHIR ConceptMap JSON file into a Python dictionary

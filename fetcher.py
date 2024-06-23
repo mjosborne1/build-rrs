@@ -96,7 +96,8 @@ def procedure_mapper(proc):
          ('44491008','Fluoroscopy'),
          ('71651007','Mammography'),
          ('77343006','Angiography'),
-         ('27483000','X-ray with contrast')
+         ('27483000','X-ray with contrast'),
+         ('363680008','X-ray')
          ]
   
   for src,desc in map:          
@@ -218,6 +219,7 @@ def expand_body_site(df,left_list,right_list,fh):
   bilateral_procs = get_bilateral_procedures()
   if pre_co in bilateral_procs:
     lat="51440002"
+  ##print(f"pre co concept before procedure mapper is {pre_co}")
   procedure = procedure_mapper(pre_co)
   # Check for procedures stating no contrast
   procs_without_contrast = get_procedures_without_contrast()

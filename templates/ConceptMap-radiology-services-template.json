@@ -1,7 +1,7 @@
 {
     "resourceType": "ConceptMap",
     "id": "radiology-services-concept-map-1",
-    "url": "http://ranzcr.com/fhir/ConceptMap/radiology-services-map-1",
+    "url": "http://erequestingexample.org.au/ConceptMap/radiology-services-map-1",
     "version": "1.0.0",
     "name": "RadiologyServicesConceptMap",
     "title": "Radiology Services Concept Map",
@@ -19,16 +19,15 @@
           ]
         }
       ],
-    "copyright": "Copyright © 2023 Royal Australian and New Zealand College of Radiologists- All rights reserved. This resource includes SNOMED Clinical Terms™ (SNOMED CT®) which is used by permission of the International Health Terminology Standards Development Organisation (IHTSDO). All rights reserved. SNOMED CT®, was originally created by The College of American Pathologists. “SNOMED” and “SNOMED CT” are registered trademarks of the IHTSDO. \n\nThe rights to use and implement or implementation of SNOMED CT content are limited to the extent it is necessary to allow for the end use of this material.  No further rights are granted in respect of the International Release and no further use of any SNOMED CT content by any other party is permitted.",
     "description": "Radiology Referral Set Concept map to SNOMED CT Procedure",
     "purpose": "To illustrate mapping pre-coordinated concepts to post coordinated concepts",
     "sourceUri": [
-                "http://ranzcr.com/fhir/ValueSet/radiology-procedure-1",
-                "http://ranzcr.com/fhir/ValueSet/radiology-service-bodysites-1",
-                "http://ranzcr.com/fhir/ValueSet/radiology-laterality-1",
-                "http://ranzcr.com/fhir/ValueSet/radiology-contrast-1"
+                "http://erequestingexample.org.au/fhir/ValueSet/radiology-procedure-1",
+                "http://erequestingexample.org.au/fhir/ValueSet/radiology-service-bodysites-1",
+                "http://erequestingexample.org.au/fhir/ValueSet/radiology-laterality-1",
+                "http://erequestingexample.org.au/fhir/ValueSet/radiology-contrast-1"
              ],
-    "targetUri":  "http://ranzcr.com/fhir/ValueSet/radiology-services-1",
+    "targetUri":  "http://erequestingexample.org.au/fhir/ValueSet/radiology-services-1",
     "group": [
       
     ]
