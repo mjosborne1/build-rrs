@@ -96,5 +96,25 @@ class TestLighter(unittest.TestCase):
         validation_status= helpers.validate_resource(data,"ConceptMap")
         self.assertEqual(validation_status,200)
 
+    def test_build_codesystem_supplement(self):
+        """
+        Test that the codesystem supplement builds correctly
+        """
+        smart=None
+        if (endpoint != ""):
+            smart = lighter.create_client(endpoint)
+        infile = os.path.join('.','test_data','rrs.txt')
+        outdir=os.path.join('.','test_data','cs')
+        status = lighter.build_codesystem_supplement(infile,outdir,smart)        
+        self.assertEqual(status,201)
+        outfile = os.path.join('.','test_data','cs','CodeSystemSupplementRadiology.json')
+        with open(outfile) as fh:
+            data =  json.load(fh)
+        # Test that CodeSystem data is a resource of type CodeSystem
+        self.assertEqual(data["resourceType"],"CodeSystem")
+         # Test that the CodeSystem resource is Valid        
+        validation_status= helpers.validate_resource(data,"CodeSystem")
+        self.assertEqual(validation_status,200)
+
 if __name__ == '__main__':
     unittest.main()

@@ -13,7 +13,7 @@ dnspython==2.5.0
 docutils==0.20.1
 email-validator==2.1.0.post1
 fhir.resources==6.5.0
-fhirclient==4.1.0
+fhirclient==4.2.0
 fhirpath==0.10.5
 fhirpathpy==1.1.0
 fhirspec==0.4.0

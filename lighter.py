@@ -5,7 +5,7 @@
 import json
 import numpy as np
 import pandas as pd
-from fhirclient.models import valueset,conceptmap
+from fhirclient.models import valueset,conceptmap,codesystem
 from fhirclient import client
 from helpers import path_exists 
 import os
@@ -199,6 +199,88 @@ def build_concept_map(rrsfile,outdir,smart):
     else:
         return 200
 
+
+
+def build_codesystem_supplement(rrsfile,outdir,smart):
+    """
+    Build a SNOMED CT codesystem supplement of procedures, bodysite, laterality and 
+    contrast for each single radiology service code 
+    """
+    print(f'...Building CodeSystem Supplement')
+    cs_sup_file = os.path.join(outdir,"CodeSystemSupplementRadiology.json")
+    df=pd.read_csv(rrsfile,sep='\t',dtype={'Service':str,'Procedure':str,'Site':str,'Laterality':str,'Contrast':str})
+    
+    # Read the FHIR ConceptMap JSON file into a Python dictionary
+    template =  os.path.join('.','templates','CodeSystemSupplement-template.json')
+    print("Processing CodeSystem Supplement template...{0}".format(template))
+    
+    ## Drop any duplicate rows
+    df.drop_duplicates(subset=['Service', 'Procedure'], inplace=True)
+
+    def make_property(source):
+        prop = codesystem.CodeSystemProperty()
+        prop.code = source["code"]
+        prop.description = source["description"]
+        prop.type = source["type"]
+        return prop
+
+    with open(template) as f:
+        meta = json.load(f)
+        cs = codesystem.CodeSystem()
+        cs.status = meta.get('status')
+        cs.name = meta.get('name')
+        cs.title = meta.get('title')
+        cs.description = meta.get('description')
+        cs.publisher = meta.get('publisher')
+        cs.version = meta.get('version')
+        cs.url = meta.get('url')
+        cs.copyright = meta.get('copyright')
+        cs.experimental = meta.get('experimental')
+        cs.content = meta.get('content')
+        cs.supplements = meta.get('supplements')
+        cs.property = [ make_property(x) for x in meta["property"] ]
+        cs.concept = []        
+       
+        for index, row in df.iterrows():
+            if not is_numeric(row['Service']):
+                continue
+            concept = codesystem.CodeSystemConcept()
+            concept.code = row['Service']        
+            concept.property = [] 
+            if is_numeric(row['Procedure']):
+                prop = codesystem.CodeSystemConceptProperty()
+                prop.code = "RANZCR-Procedure"
+                prop.valueCode = row['Procedure']
+                concept.property.append(prop)
+            if is_numeric(row['Site']): 
+                prop = codesystem.CodeSystemConceptProperty()
+                prop.code = "RANZCR-BodySite"
+                prop.valueCode = row['Site']
+                concept.property.append(prop)
+            if is_numeric(row['Laterality']): 
+                prop = codesystem.CodeSystemConceptProperty()
+                prop.code = "RANZCR-BodySiteLaterality"
+                prop.valueCode = row['Laterality']
+                concept.property.append(prop)
+            if is_numeric(row['Contrast']): 
+                prop = codesystem.CodeSystemConceptProperty()
+                prop.code = "RANZCR-Contrast"
+                prop.valueCode = row['Contrast']
+                concept.property.append(prop)
+            cs.concept.append(concept)
+        # Dump the ConceptMap to file for manual review
+        with open(cs_sup_file, "w") as f:
+            json.dump(cs.as_json(), f, indent=2)
+    
+        if smart != None:
+            response = cs.create(smart.server)
+            if response:
+                return 201
+            else:
+                return 500
+        else:
+            return 200
+
 ## Mainline
 ## Output the Valuesets and Conceptmap built from the RRS file    
 def run_main(rrsfile,outdir,endpoint):
@@ -212,4 +294,5 @@ def run_main(rrsfile,outdir,endpoint):
         print("{0} Processing template...{1}".format( col, templates[col]))
         vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart)        
     cm = build_concept_map(rrsfile,outdir,smart)
+    csupp = build_codesystem_supplement(rrsfile,outdir,smart)
    

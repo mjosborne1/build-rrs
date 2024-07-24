@@ -1,0 +1,1119 @@
+{
+  "concept": [
+    {
+      "code": "168702005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "818982008"
+        }
+      ]
+    },
+    {
+      "code": "426721006",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "419605007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "425703002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "419605007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "426420006",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "419605007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "3771000087100",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "16982005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "4111000087108",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "16982005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "3761000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "16982005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "3531000087108",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "127949000"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "3991000087103",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "127949000"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "3521000087106",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "127949000"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "431326009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "45048000"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "34227000",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "12738006"
+        }
+      ]
+    },
+    {
+      "code": "396207002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "12738006"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "55501000",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "64033007"
+        }
+      ]
+    },
+    {
+      "code": "241526005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "2095001"
+        }
+      ]
+    },
+    {
+      "code": "241547009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "80891009"
+        }
+      ]
+    },
+    {
+      "code": "429931008",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "64033007"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "429862006",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "10200004"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "429873004",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "15776009"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "241536002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "4596009"
+        }
+      ]
+    },
+    {
+      "code": "417986000",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "69105007"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "16332841000119106",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77477000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "81040000"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "816077007",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "12738006"
+        }
+      ]
+    },
+    {
+      "code": "241621009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "818981001"
+        }
+      ]
+    },
+    {
+      "code": "2690005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "816092008"
+        }
+      ]
+    },
+    {
+      "code": "75691003",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "41216001"
+        }
+      ]
+    },
+    {
+      "code": "241622002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "10200004"
+        }
+      ]
+    },
+    {
+      "code": "241625000",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "15776009"
+        }
+      ]
+    },
+    {
+      "code": "426252008",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "38266002"
+        }
+      ]
+    },
+    {
+      "code": "241620005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "80891009"
+        }
+      ]
+    },
+    {
+      "code": "431627008",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "30315005"
+        }
+      ]
+    },
+    {
+      "code": "241623007",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "23451007"
+        }
+      ]
+    },
+    {
+      "code": "168566009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "2095001"
+        }
+      ]
+    },
+    {
+      "code": "241647000",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "1141986006"
+        }
+      ]
+    },
+    {
+      "code": "446063006",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "113091000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "113197003"
+        }
+      ]
+    },
+    {
+      "code": "45036003",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "818983003"
+        }
+      ]
+    },
+    {
+      "code": "24848001",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "12921003"
+        }
+      ]
+    },
+    {
+      "code": "268445003",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        }
+      ]
+    },
+    {
+      "code": "446045006",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        }
+      ]
+    },
+    {
+      "code": "961000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "1571000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "951000087106",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "303917008",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "431938005"
+        }
+      ]
+    },
+    {
+      "code": "241462009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "7832008"
+        }
+      ]
+    },
+    {
+      "code": "713021002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "12921003"
+        }
+      ]
+    },
+    {
+      "code": "19731001",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "81745001"
+        }
+      ]
+    },
+    {
+      "code": "866200001",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "1290032005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "11521000087108",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "64033007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "13301000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "64033007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "11581000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "64033007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "40701008",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "80891009"
+        }
+      ]
+    },
+    {
+      "code": "105377009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "10200004"
+        }
+      ]
+    },
+    {
+      "code": "169250003",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "28231008"
+        }
+      ]
+    },
+    {
+      "code": "241487002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "16310003"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "41216001"
+        }
+      ]
+    },
+    {
+      "code": "168821007",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "27483000"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "32849002"
+        },
+        {
+          "code": "RANZCR-Contrast",
+          "valueCode": "263543005"
+        }
+      ]
+    },
+    {
+      "code": "33367005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77343006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "41801008"
+        }
+      ]
+    },
+    {
+      "code": "3651000087100",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "29836001"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "4051000087106",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "29836001"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "3641000087103",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "29836001"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "308749001",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "77343006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "86570000"
+        }
+      ]
+    },
+    {
+      "code": "572701000119102",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "71651007"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "566571000119105",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "71651007"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "43204002",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "71651007"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "76752008"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "3631000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "85562004"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "4041000087108",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "85562004"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "3621000087107",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "85562004"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "3831000087105",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "8205005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "4141000087109",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "8205005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "3821000087108",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "8205005"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    },
+    {
+      "code": "426311001",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "419605007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "426581005",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "419605007"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "24028007"
+        }
+      ]
+    },
+    {
+      "code": "426908009",
+      "property": [
+        {
+          "code": "RANZCR-Procedure",
+          "valueCode": "168537006"
+        },
+        {
+          "code": "RANZCR-BodySite",
+          "valueCode": "56459004"
+        },
+        {
+          "code": "RANZCR-BodySiteLaterality",
+          "valueCode": "7771000"
+        }
+      ]
+    }
+  ],
+  "content": "supplement",
+  "experimental": true,
+  "name": "RANZCR RRS SNOMED CT Supplement",
+  "property": [
+    {
+      "code": "RANZCR-Procedure",
+      "description": "Radiology Procedure",
+      "type": "code"
+    },
+    {
+      "code": "RANZCR-BodySite",
+      "description": "Body site that is the target of the Procedure",
+      "type": "code"
+    },
+    {
+      "code": "RANZCR-BodySiteLaterality",
+      "description": "Laterality of the Body site that is the target of the Procedure",
+      "type": "code"
+    },
+    {
+      "code": "RANZCR-Contrast",
+      "description": "The Procedure is requested with or without contrast",
+      "type": "code"
+    }
+  ],
+  "publisher": "CSIRO",
+  "status": "draft",
+  "supplements": "http://snomed.info/sct|http://snomed.info/sct/32506021000036107/version/20240630",
+  "url": "http://snomedct.info/sct/ranzcr-rrs-snomedct-supplement",
+  "version": "4.0.1",
+  "resourceType": "CodeSystem"
+}

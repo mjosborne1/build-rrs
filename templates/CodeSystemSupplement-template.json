@@ -1,0 +1,46 @@
+{
+    "resourceType": "CodeSystem",
+    "id": "CodeSystemSupplementTemplate",                
+    "url": "http://snomedct.info/sct/ranzcr-rrs-snomedct-supplement",
+    "version": "4.0.1",
+    "name": "RANZCR RRS SNOMED CT Supplement",
+    "status": "draft",
+    "experimental": true,
+    "date": "2024-07-12",
+    "publisher": "CSIRO",
+    "contact": [
+        {
+            "name": "Sparked",
+            "telecom": [
+                {
+                    "system": "url",
+                    "value": "http://sparked.csiro.au"
+                }
+            ]
+        }
+    ],
+    "content": "supplement",
+    "supplements": "http://snomed.info/sct|http://snomed.info/sct/32506021000036107/version/20240630",
+    "property": [
+        {
+            "code": "RANZCR-Procedure",
+            "description": "Radiology Procedure",
+            "type": "code"
+        },
+        {
+            "code": "RANZCR-BodySite",
+            "description": "Body site that is the target of the Procedure",
+            "type": "code"
+        },
+        {
+            "code": "RANZCR-BodySiteLaterality",
+            "description": "Laterality of the Body site that is the target of the Procedure",
+            "type": "code"
+        },
+        {
+            "code": "RANZCR-Contrast",
+            "description": "The Procedure is requested with or without contrast",
+            "type": "code"
+        }
+    ]
+}
