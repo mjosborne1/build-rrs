@@ -1,7 +1,7 @@
 {
     "resourceType": "ConceptMap",
     "id": "radiology-services-concept-map",
-    "url": "http://erequestingexample.org.au/fhir/ConceptMap/radiology-services",
+    "url": "http://csiro.au/ConceptMap/radiology-services",
     "version": "1.0.0",
     "name": "RadiologyServicesConceptMap",
     "title": "Radiology Services Concept Map",
@@ -22,10 +22,10 @@
     "description": "Radiology Referral Set Concept map to SNOMED CT Procedure",
     "purpose": "To illustrate mapping pre-coordinated concepts to post coordinated concepts",
     "sourceUri": [
-                "http://erequestingexample.org.au/fhir/ValueSet/radiology-procedure",
-                "http://erequestingexample.org.au/fhir/ValueSet/radiology-service-bodysites",
-                "http://erequestingexample.org.au/fhir/ValueSet/radiology-laterality",
-                "http://erequestingexample.org.au/fhir/ValueSet/radiology-contrast"
+                "http://csiro.au/fhir/ValueSet/radiology-procedure",
+                "http://csiro.au/fhir/ValueSet/radiology-service-bodysites",
+                "http://csiro.au/fhir/ValueSet/radiology-laterality",
+                "http://csiro.au/fhir/ValueSet/radiology-contrast"
              ],
     "targetUri":  "https://ranzcr.com/fhir/ValueSet/radiology-referral",
     "group": [

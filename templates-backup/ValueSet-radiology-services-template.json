@@ -1,15 +1,15 @@
 {
   "resourceType": "ValueSet",
   "status": "active",
-  "name": "RadiologyBodyStructure",
-  "id": "radiology-body-structure-1.0.0",
-  "title": "Radiology Body Structure",
-  "description": "The Radiology Body Structure Codes value set includes SNOMED CT that can be used in a ServiceRequest",
-  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-body-structure",
+  "name": "RANZCRRadiologyReferral",
+  "id": "ranzcr-radiology-referral",
+  "title": "RANZCR Radiology Referral",
+  "description": "Standard codes for use in requesting radiology tests in Australia, derived from the RANZCR Radiology Referral Set (RRS).",
+  "url": "https://ranzcr.com/fhir/ValueSet/radiology-referral",
   "version": "1.0.0",
   "experimental": false,
   "date": "2024-07-31",
-  "publisher": "Sparked FHIR Accelerator",
+  "publisher": "HL7 Australia",
   "contact": [
     {
       "telecom": [

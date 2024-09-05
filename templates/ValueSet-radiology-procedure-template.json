@@ -5,10 +5,10 @@
   "id": "radiology-procedure-1.0.0",
   "title": "Radiology Procedure",
   "description": "The Radiology Procedure value set includes SNOMED CT radiology procedures such as plain X-Ray and CT.",
-  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-procedure-1",
+  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-procedure",
   "version": "1.0.0",
   "experimental": false,
-  "date": "2024-03-31",
+  "date": "2024-07-31",
   "publisher": "Sparked FHIR Accelerator",
   "contact": [
     {

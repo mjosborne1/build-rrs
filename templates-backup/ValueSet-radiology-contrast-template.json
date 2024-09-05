@@ -1,14 +1,14 @@
 {
   "resourceType": "ValueSet",
   "status": "active",
-  "name": "RadiologyLaterality",
-  "id": "radiology-laterality-1.0.0",
-  "title": "Radiology Laterality",
-  "description": "The Radiology Body Structure Laterality value set includes SNOMED CT that can be used for body structure laterailty in a ServiceRequest.",
-  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-laterality",
+  "name": "RadiologyContrast",
+  "id": "radiology-contrast-1.0.0",
+  "title": "Radiology Contrast",
+  "description": "The Radiology contrast value set includes SNOMED CT codes that indicate whether contrast is required for the service:  'yes' or 'no'",
+  "url": "http://csiro.au/fhir/ValueSet/radiology-contrast",
   "version": "1.0.0",  
   "experimental": false,
-  "date": "2024-03-31",
+  "date": "2024-07-31",
   "publisher": "Sparked FHIR Accelerator",
   "contact": [
     {

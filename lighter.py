@@ -8,6 +8,7 @@ import pandas as pd
 from fhirclient.models import valueset,conceptmap,codesystem
 from fhirclient import client
 from helpers import path_exists 
+from fetcher import read_focus_procedures
 import os
 
 ## create_vs_filepath
@@ -57,7 +58,7 @@ def create_client(endpoint):
     return smart
    
 
-def build_valueset(col,template,infile,outfile,smart):
+def build_valueset(col,template,infile,outfile,smart,version):
     """
     Build a FHIR ValueSet based on the input file, template file and output to outfile
     col is an integer that describes which column 0..3 in the input file to work from
@@ -79,7 +80,7 @@ def build_valueset(col,template,infile,outfile,smart):
     vs.title = meta.get('title')
     vs.description = meta.get('description')
     vs.publisher = meta.get('publisher')
-    vs.version = meta.get('version')
+    vs.version = version or meta.get('version')
     vs.url = meta.get('url')
 #    vs.contact = meta.get('contact')
     vs.copyright = meta.get('copyright')
@@ -111,9 +112,65 @@ def build_valueset(col,template,infile,outfile,smart):
     else:
         return 200
 
+def build_bodysite_valuesets(infile, outdir, version):
+    """
+    Build BodySite ValueSets based on the input file for each modality, template file and output to outdir.
+    """
+    df = pd.read_csv(infile, sep='\t', dtype={'Service': str, 'Procedure': str, 'Site': str, 'Laterality': str, 'Contrast': str})
+    template = os.path.join('.','templates','ValueSet-radiology-body-structure-template.json')
+    # Get list of focus procedures:  which are code, display pairs
+    focus_procedures=read_focus_procedures()  
+    # Get unique Procedures
+    unique_procedures = df['Procedure'].unique()
+    
+    # Read the FHIR ValueSet JSON template file into a Python dictionary
+    with open(template) as f:
+        meta = json.load(f)
+    
+    for procedure in unique_procedures:
+        # Filter the dataframe for the current procedure
+        procedure_df = df[df['Procedure'] == procedure]
+        
+        # Get unique Sites for the current procedure
+        unique_sites = procedure_df['Site'].astype(str).unique()
+        
+        # Build a friendly nametag for the ValueSet
+        for code,desc in focus_procedures:          
+            if code == procedure:
+                proc_name=desc
+                proc_name_vs=desc.replace(" ","-")
+                break
+        # Create a FHIR ValueSet resource object
+        vs = valueset.ValueSet()
+        vs.status = meta.get('status')
+        vs.name = f"{meta.get('name')}-{proc_name_vs}"
+        vs.title = f"{meta.get('title')} for Procedure {proc_name}"
+        vs.description = f"{meta.get('description')} for Procedure {proc_name}"
+        vs.publisher = meta.get('publisher')
+        vs.version = version or meta.get('version')
+        vs.url = f"{meta.get('url')}-{proc_name_vs}"
+        vs.copyright = meta.get('copyright')
+        vs.experimental = meta.get('experimental')
+        
+        # Add the concepts to the ValueSet
+        vs.compose = valueset.ValueSetCompose()
+        vs.compose.include = [valueset.ValueSetComposeInclude()]
+        vs.compose.include[0].system = "http://snomed.info/sct"
+        vs.compose.include[0].concept = []
+        
+        for site in unique_sites:
+            if site.isdigit():
+                include_concept = valueset.ValueSetComposeIncludeConcept()
+                include_concept.code = str(site)
+                vs.compose.include[0].concept.append(include_concept)
+        
+        # Export the ValueSet to file for manual review
+        outfile = os.path.join(outdir, f"ValueSet-{proc_name_vs}.json")
+        with open(outfile, "w") as f:
+            json.dump(vs.as_json(), f, indent=2)
 
 
-def build_concept_map(rrsfile,outdir,smart):
+def build_concept_map(rrsfile,outdir,smart,version):
     """
     Build a concept map of procedures and other qualifiers in a property/dependsOn style 
     to a radiology service code (fully defined)
@@ -124,6 +181,10 @@ def build_concept_map(rrsfile,outdir,smart):
     # Read the FHIR ConceptMap JSON file into a Python dictionary
     template =  os.path.join('.','templates','ConceptMap-radiology-services-template.json')
     print("Processing ConceptMap template...{0}".format(template))
+    prop_modality =  "FocalProcedure"
+    prop_site = "BodySite"
+    prop_laterality = "Laterality"
+    prop_contrast = "Contrast"
     with open(template) as f:
        meta = json.load(f)
      # Create a FHIR ConceptMap resource object
@@ -134,7 +195,7 @@ def build_concept_map(rrsfile,outdir,smart):
     cm.title = meta.get('title')
     cm.description = meta.get('description')
     cm.publisher = meta.get('publisher')
-    cm.version = meta.get('version')
+    cm.version = version or meta.get('version')
     cm.url = meta.get('url')
 #    cm.contact = meta.get('contact')
     cm.copyright = meta.get('copyright')
@@ -160,28 +221,52 @@ def build_concept_map(rrsfile,outdir,smart):
         idx = 0
         if is_numeric(row['Site']):
             dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
-            dep.property = "405813007"  ## Procedure site - direct
+            dep.property =  prop_site
             dep.system = "http://snomed.info/sct"
             ## Body structure
             dep.value = row['Site']
             if not isinstance(element.target[0].dependsOn, list):
                 element.target[0].dependsOn = []
             element.target[0].dependsOn.append(dep)
+        else:
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = prop_site
+            dep.system = "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            dep.value = "unknown" 
+            if not isinstance(element.target[0].dependsOn, list):
+               element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)
         if is_numeric(row['Laterality']):
             dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
-            dep.property = "272741003"  ## Body structure laterality
+            dep.property = prop_laterality
             dep.system = "http://snomed.info/sct"
             dep.value = row['Laterality']
             if not isinstance(element.target[0].dependsOn, list):
                 element.target[0].dependsOn = []
             element.target[0].dependsOn.append(dep)
+        else:
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = prop_laterality
+            dep.system = "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            dep.value = "unknown" 
+            if not isinstance(element.target[0].dependsOn, list):
+               element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)    
         if is_numeric(row['Contrast']):
             dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
-            dep.property = "424361007"  ## yes or no value
+            dep.property = prop_contrast
             dep.system = "http://snomed.info/sct"
             dep.value = row['Contrast']
             if not isinstance(element.target[0].dependsOn, list):
                 element.target[0].dependsOn = []
+            element.target[0].dependsOn.append(dep)
+        else:
+            dep = conceptmap.ConceptMapGroupElementTargetDependsOn()
+            dep.property = prop_contrast 
+            dep.system = "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            dep.value = "unknown" 
+            if not isinstance(element.target[0].dependsOn, list):
+               element.target[0].dependsOn = []
             element.target[0].dependsOn.append(dep)
         elements.append(element)
     cm.group[0].element = elements
@@ -201,7 +286,7 @@ def build_concept_map(rrsfile,outdir,smart):
 
 
 
-def build_codesystem_supplement(rrsfile,outdir,smart):
+def build_codesystem_supplement(rrsfile,outdir,smart,version):
     """
     Build a SNOMED CT codesystem supplement of procedures, bodysite, laterality and 
     contrast for each single radiology service code 
@@ -232,7 +317,7 @@ def build_codesystem_supplement(rrsfile,outdir,smart):
         cs.title = meta.get('title')
         cs.description = meta.get('description')
         cs.publisher = meta.get('publisher')
-        cs.version = meta.get('version')
+        cs.version = version or meta.get('version')
         cs.url = meta.get('url')
         cs.copyright = meta.get('copyright')
         cs.experimental = meta.get('experimental')
@@ -249,22 +334,22 @@ def build_codesystem_supplement(rrsfile,outdir,smart):
             concept.property = [] 
             if is_numeric(row['Procedure']):
                 prop = codesystem.CodeSystemConceptProperty()
-                prop.code = "RANZCR-Procedure"
+                prop.code = "Procedure"
                 prop.valueCode = row['Procedure']
                 concept.property.append(prop)
             if is_numeric(row['Site']): 
                 prop = codesystem.CodeSystemConceptProperty()
-                prop.code = "RANZCR-BodySite"
+                prop.code = "BodySite"
                 prop.valueCode = row['Site']
                 concept.property.append(prop)
             if is_numeric(row['Laterality']): 
                 prop = codesystem.CodeSystemConceptProperty()
-                prop.code = "RANZCR-BodySiteLaterality"
+                prop.code = "BodySiteLaterality"
                 prop.valueCode = row['Laterality']
                 concept.property.append(prop)
             if is_numeric(row['Contrast']): 
                 prop = codesystem.CodeSystemConceptProperty()
-                prop.code = "RANZCR-Contrast"
+                prop.code = "Contrast"
                 prop.valueCode = row['Contrast']
                 concept.property.append(prop)
             cs.concept.append(concept)
@@ -283,16 +368,18 @@ def build_codesystem_supplement(rrsfile,outdir,smart):
 
 ## Mainline
 ## Output the Valuesets and Conceptmap built from the RRS file    
-def run_main(rrsfile,outdir,endpoint):
+def run_main(rrsfile,outdir,endpoint,version):
     smart=None
     if (endpoint != ""):
          smart = create_client(endpoint)
     # Note, the template file order must match the valueset file order
     vs_files=create_vs_filepath(outdir)
     templates=get_template_files()
+
     for col in range(0,5):
         print("{0} Processing template...{1}".format( col, templates[col]))
-        vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart)        
-    cm = build_concept_map(rrsfile,outdir,smart)
-    csupp = build_codesystem_supplement(rrsfile,outdir,smart)
-   
+        vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart,version)        
+    cm = build_concept_map(rrsfile,outdir,smart,version)
+    csupp = build_codesystem_supplement(rrsfile,outdir,smart,version)    
+    # Create custom per modality ValueSets
+    bsvs =  build_bodysite_valuesets(rrsfile,outdir,version) 

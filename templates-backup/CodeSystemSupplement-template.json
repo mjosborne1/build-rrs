@@ -1,7 +1,7 @@
 {
     "resourceType": "CodeSystem",
     "id": "CodeSystemSupplementTemplate",                
-    "url": "http://erequestingexample.org.au/fhir/radiology-requesting-supplement",
+    "url": "http://csiro.au/radiology-requesting-supplement",
     "version": "4.0.1",
     "name": "CSIRO Radiology Requesting SNOMED CT Supplement",
     "status": "draft",

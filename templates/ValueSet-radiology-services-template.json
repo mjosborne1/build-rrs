@@ -1,15 +1,15 @@
 {
   "resourceType": "ValueSet",
   "status": "active",
-  "name": "RadiologyServices",
-  "id": "radiology-services-1",
-  "title": "Radiology Services",
-  "description": "The Radiology Service Codes value set includes SNOMED CT that can be used to bind to Service.code in a ServiceRequest.",
-  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-services-1",
+  "name": "RANZCRRadiologyReferral",
+  "id": "ranzcr-radiology-referral",
+  "title": "RANZCR Radiology Referral",
+  "description": "Standard codes for use in requesting radiology tests in Australia, derived from the RANZCR Radiology Referral Set (RRS).",
+  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-referral",
   "version": "1.0.0",
   "experimental": false,
-  "date": "2024-03-31",
-  "publisher": "Sparked FHIR Accelerator",
+  "date": "2024-07-31",
+  "publisher": "HL7 Australia",
   "contact": [
     {
       "telecom": [

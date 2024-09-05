@@ -1,14 +1,14 @@
 {
   "resourceType": "ValueSet",
   "status": "active",
-  "name": "RadiologyLaterality",
-  "id": "radiology-laterality-1.0.0",
-  "title": "Radiology Laterality",
-  "description": "The Radiology Body Structure Laterality value set includes SNOMED CT that can be used for body structure laterailty in a ServiceRequest.",
-  "url": "http://erequestingexample.org.au/fhir/ValueSet/radiology-laterality",
-  "version": "1.0.0",  
+  "name": "RadiologyBodyStructure",
+  "id": "radiology-body-structure-1.0.0",
+  "title": "Radiology Body Structure",
+  "description": "The Radiology Body Structure Codes value set includes SNOMED CT that can be used in a ServiceRequest.",
+  "url": "http://csiro.au/fhir/ValueSet/radiology-body-structure",
+  "version": "1.0.0",
   "experimental": false,
-  "date": "2024-03-31",
+  "date": "2024-07-31",
   "publisher": "Sparked FHIR Accelerator",
   "contact": [
     {

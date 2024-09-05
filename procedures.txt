@@ -1,0 +1,12 @@
+82918005,Pet
+168537006,Plain X-Ray
+77477000,CT
+717193008,Cone Beam CT
+113091000,MRI
+16310003,Ultrasound imaging
+44491008,Fluoroscopy
+71651007,Mammography
+77343006,Angiography
+27483000,X-ray with contrast
+363680008,X-ray
+371576000,Video imaging

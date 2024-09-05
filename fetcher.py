@@ -1,7 +1,9 @@
 import subprocess
+import requests
 import urllib 
 import numpy as np
 import pandas as pd
+from urllib.parse import quote
 from fhirpathpy import evaluate
 import os
 import json
@@ -14,9 +16,9 @@ system="http://snomed.info/sct"
 ## Checkserver is up
 def check_terminology_server():
   query = "{0}/metadata".format(baseurl)
-  command = ['curl', '-H "Accept: application/fhir+json" ' , '--location', query]
-  result = subprocess.run(command, capture_output=True)
-  data =  json.loads(result.stdout)
+  headers = {'Accept': 'application/fhir+json'}  
+  response = requests.get(query, headers=headers)
+  data = response.json()
   if data["status"] != "active":
     return False
   else:
@@ -57,13 +59,12 @@ def match_property_name(sct_code):
 ## Generic Valueset getter, pass in a URL expression
 ## return a json response from the curl call
 def get_valueset(expr):
-  vsexp=baseurl+'/ValueSet/$expand?url='
-  query=vsexp+urllib.parse.quote(expr,safe='')
-  command = ['curl', '-H "Accept: application/fhir+json" ' , '--location', query]  
-  result = subprocess.run(command, capture_output=True)
-  data =  json.loads(result.stdout)
-  return data
-
+    vsexp = baseurl + '/ValueSet/$expand?url='
+    query = vsexp + quote(expr, safe='')
+    headers = {'Accept': 'application/fhir+json'}
+    response = requests.get(query, headers=headers)
+    data = response.json()
+    return data
 
 ## get_concept_all_props
 ## Perform a CodeSystem lookup and get all properties 
@@ -71,40 +72,43 @@ def get_valueset(expr):
 def get_concept_all_props(code):
   cslookup='/CodeSystem/$lookup'  
   query=baseurl+cslookup+'?system='+urllib.parse.quote(system,safe='')+"&code="+code+"&property=*"
-
-  command = ['curl', '-H "Accept: application/fhir+json" ' , '--location', query]
-  result = subprocess.run(command, capture_output=True)
-  data =  json.loads(result.stdout)
+  headers = {'Accept': 'application/fhir+json'}  
+  response = requests.get(query, headers=headers)
+  data = response.json()
   return data
+
+
+##
+## read procedures
+## read procedures concept (code and display) from a csv into an array
+def read_focus_procedures():
+  file_path = os.path.join('.','procedures.txt')
+  data = []
+  if not path_exists(file_path):
+    print(f'Fatal error: Procedures file {file_path} does not exist.')
+    return None
+  with open(file_path, 'r') as file:
+      for line in file:
+          code, description = line.strip().split(',')
+          data.append((code, description))
+  return data
+
 
 
 ## procedure mapper 
 ## given a procedure code (proc), lookup the ancestors to see what the base procedure is
 ## Get the ancestors and check to see if the match our list of common services/procedures/modalities
-def procedure_mapper(proc):
+def procedure_mapper(proc,map):
   target = proc
   ecl='http://snomed.info/sct?fhir_vs=ecl/>'+ proc
   data = get_valueset(ecl)
   concepts = evaluate(data,"expansion.contains.code")
-  ### Need to put this in a lookup table
-  map = [('82918005','Pet'),
-         ('168537006','Plain X-Ray'),
-         ('77477000','CT'),
-         ('717193008','Cone Beam CT'),
-         ('113091000','MRI'),
-         ('16310003','Ultrasound imaging'),
-         ('44491008','Fluoroscopy'),
-         ('71651007','Mammography'),
-         ('77343006','Angiography'),
-         ('27483000','X-ray with contrast'),
-         ('363680008','X-ray')
-         ]
-  
-  for src,desc in map:          
-    if src in concepts:
-      target=src
-      break
-    
+
+  if map != None:  
+    for src,desc in map:          
+      if src in concepts:
+        target=src
+        break    
   return target
 
 
@@ -185,7 +189,7 @@ def split_site(code):
 
 ## Separate lateralised body site into a body site column and a flag for left, right, both
 ##  left_list and right_list are arrays of concepts that have the laterality listed in the name of that variable.
-def expand_body_site(df,left_list,right_list,fh):
+def expand_body_site(df,left_list,right_list,focus_proc_list,fh):
   sep="\t"
   pre_co=""
   procedure=""
@@ -219,8 +223,8 @@ def expand_body_site(df,left_list,right_list,fh):
   bilateral_procs = get_bilateral_procedures()
   if pre_co in bilateral_procs:
     lat="51440002"
-  ##print(f"pre co concept before procedure mapper is {pre_co}")
-  procedure = procedure_mapper(pre_co)
+  # Get focus procedure code for the pre-coordinated concept
+  procedure = procedure_mapper(pre_co,focus_proc_list)
   # Check for procedures stating no contrast
   procs_without_contrast = get_procedures_without_contrast()
   if pre_co in procs_without_contrast:
@@ -251,8 +255,13 @@ def run_main(s2sfile,outdir):
     print("Cannot continue as {0} appears to be down. 😭".format(baseurl))
     exit
   files=create_filepath(s2sfile,outdir)
+  dupes = []
+  # Get Left sided body structures
   left_list=get_body_structures("left")
-  right_list=get_body_structures("right")  
+  # Get Right sided body structures
+  right_list=get_body_structures("right")
+  # Get list of focus procedures 
+  focus_procedures=read_focus_procedures()  
   data=pd.read_csv(files["s2sfile"],sep='\t',dtype={'Target code': str})
   fhRRS=init(files["rrsfile"])
   fhRRS.write("%s%s%s%s%s%s%s%s%s\n" % ("Service",sep,"Procedure",sep,"Site",sep,"Laterality",sep,"Contrast"))
@@ -261,10 +270,15 @@ def run_main(s2sfile,outdir):
     if row["Relationship type code"] == "TARGET_EQUIVALENT":
         if row["Target code"] != "":
           order_code = str(row["Target code"])
-          rrs_df = get_snomed_props(order_code)  
-          # Take the initial dataframes and further expand the body structure to add laterality
-          expand_body_site(rrs_df,left_list,right_list,fhRRS)
+          if order_code in dupes:
+            print(f'...duplicate code detected at index:{index}... {order_code}, ignoring')
+            continue
+          else:
+            rrs_df = get_snomed_props(order_code)  
+            # Take the initial dataframes and further expand the body structure to add laterality
+            expand_body_site(rrs_df,left_list,right_list,focus_procedures,fhRRS)
+            dupes.append(order_code)
   fhRRS.close()
   return files["rrsfile"]
+       
 
-         
