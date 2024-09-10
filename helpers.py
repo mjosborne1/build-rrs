@@ -17,10 +17,10 @@ def init(filename):
 #    Validate a resource
 #    Create a request to onto r4 for validating the ValueSet and ConceptMap resources
 
-def validate_resource(data,resource_type):
+def validate_resource(data,resource_type,endpoint):
     settings = {
                 'app_id': 'build_rrs',
-                'api_base': 'https://r4.ontoserver.csiro.au/fhir'
+                'api_base': endpoint
             }
     validate_url = "{0}/{1}/$validate".format(settings['api_base'],resource_type)
     #smart = client.FHIRClient(settings=settings)

@@ -5,11 +5,14 @@
 import json
 import numpy as np
 import pandas as pd
+import logging
 from fhirclient.models import valueset,conceptmap,codesystem
 from fhirclient import client
 from helpers import path_exists 
-from fetcher import read_focus_procedures
+from fetcher import read_focus_procedures, read_bodysite_vs_ids
 import os
+
+logger = logging.getLogger(__name__)
 
 ## create_vs_filepath
 #     Create and return an array of valueset file names
@@ -27,13 +30,13 @@ def create_vs_filepath(outdir):
 
 ## get_template_files
 #     Create and return an array of ValueSet template files
-def get_template_files():
+def get_template_files(templates_path):
     template_filepath = [              
-        os.path.join('.','templates','ValueSet-radiology-services-template.json'),
-        os.path.join('.','templates','ValueSet-radiology-procedure-template.json'),
-        os.path.join('.','templates','ValueSet-radiology-body-structure-template.json'),
-        os.path.join('.','templates','ValueSet-radiology-laterality-template.json'),     
-        os.path.join('.','templates','ValueSet-radiology-contrast-template.json')         
+        os.path.join('.',templates_path,'ValueSet-radiology-services-template.json'),
+        os.path.join('.',templates_path,'ValueSet-radiology-procedure-template.json'),
+        os.path.join('.',templates_path,'ValueSet-radiology-body-structure-template.json'),
+        os.path.join('.',templates_path,'ValueSet-radiology-laterality-template.json'),     
+        os.path.join('.',templates_path,'ValueSet-radiology-contrast-template.json')         
     ]    
     return template_filepath
 
@@ -54,11 +57,12 @@ def create_client(endpoint):
         'app_id': 'build-rrs',
         'api_base': endpoint
     }
+    logger.info(f'created smart client to {endpoint}')
     smart = client.FHIRClient(settings=settings)
     return smart
    
 
-def build_valueset(col,template,infile,outfile,smart,version):
+def build_valueset(col,template,infile,outfile,smart):
     """
     Build a FHIR ValueSet based on the input file, template file and output to outfile
     col is an integer that describes which column 0..3 in the input file to work from
@@ -74,13 +78,13 @@ def build_valueset(col,template,infile,outfile,smart,version):
 
     # Create a FHIR ValueSet resource object
     vs = valueset.ValueSet()
-    # vs.id = meta.get('id')
+    vs.id = meta.get('id')
     vs.status = meta.get('status')
     vs.name = meta.get('name')
     vs.title = meta.get('title')
     vs.description = meta.get('description')
     vs.publisher = meta.get('publisher')
-    vs.version = version or meta.get('version')
+    vs.version = meta.get('version')
     vs.url = meta.get('url')
 #    vs.contact = meta.get('contact')
     vs.copyright = meta.get('copyright')
@@ -104,7 +108,10 @@ def build_valueset(col,template,infile,outfile,smart,version):
     # Cleanup
     df.drop(df.index, inplace=True)
     if smart != None:
-        response = vs.create(smart.server)
+        if vs.id:
+            response = vs.update(smart.server)
+        else:
+            response = vs.create(smart.server)
         if response:
             return 201
         else:
@@ -112,14 +119,16 @@ def build_valueset(col,template,infile,outfile,smart,version):
     else:
         return 200
 
-def build_bodysite_valuesets(infile, outdir, version):
+def build_bodysite_valuesets(infile,outdir,smart,templates_path):
     """
     Build BodySite ValueSets based on the input file for each modality, template file and output to outdir.
     """
     df = pd.read_csv(infile, sep='\t', dtype={'Service': str, 'Procedure': str, 'Site': str, 'Laterality': str, 'Contrast': str})
-    template = os.path.join('.','templates','ValueSet-radiology-body-structure-template.json')
+    template = os.path.join('.',templates_path,'ValueSet-radiology-modaility-body-site-template.json')
     # Get list of focus procedures:  which are code, display pairs
-    focus_procedures=read_focus_procedures()  
+    focus_procedures=read_focus_procedures() 
+    # Create a dict of Value set ids keyed by procedure name 
+    bodysite_vs_id=read_bodysite_vs_ids()  
     # Get unique Procedures
     unique_procedures = df['Procedure'].unique()
     
@@ -142,12 +151,20 @@ def build_bodysite_valuesets(infile, outdir, version):
                 break
         # Create a FHIR ValueSet resource object
         vs = valueset.ValueSet()
+        # For R4 updates using PUT - get the valueset id 
+        vs.id = bodysite_vs_id.get(proc_name_vs,'unknown')
+        print(f'Building Bodysite VS for {proc_name_vs}')
+        if vs.id == 'unknown':
+            msg = f'{proc_name_vs} has no id,...skipping'
+            logger.error(msg)
+            print('Error:'+msg)
+            continue
         vs.status = meta.get('status')
         vs.name = f"{meta.get('name')}-{proc_name_vs}"
         vs.title = f"{meta.get('title')} for Procedure {proc_name}"
         vs.description = f"{meta.get('description')} for Procedure {proc_name}"
         vs.publisher = meta.get('publisher')
-        vs.version = version or meta.get('version')
+        vs.version = meta.get('version')
         vs.url = f"{meta.get('url')}-{proc_name_vs}"
         vs.copyright = meta.get('copyright')
         vs.experimental = meta.get('experimental')
@@ -168,9 +185,19 @@ def build_bodysite_valuesets(infile, outdir, version):
         outfile = os.path.join(outdir, f"ValueSet-{proc_name_vs}.json")
         with open(outfile, "w") as f:
             json.dump(vs.as_json(), f, indent=2)
+        response = ""
+        if smart != None:
+            if vs.id:
+                response = vs.update(smart.server)
+            else:
+                response = vs.create(smart.server)
+        msg = f'Built Custom BodySite ValueSet: {proc_name_vs}. {response}'
+        print(msg)
+        logger.info(msg)     
 
 
-def build_concept_map(rrsfile,outdir,smart,version):
+
+def build_concept_map(rrsfile,outdir,smart,templates_path):
     """
     Build a concept map of procedures and other qualifiers in a property/dependsOn style 
     to a radiology service code (fully defined)
@@ -179,7 +206,7 @@ def build_concept_map(rrsfile,outdir,smart,version):
     mapfile = os.path.join(outdir,"ConceptMap_RadiologyServices.json")
     df=pd.read_csv(rrsfile,sep='\t',dtype={'Service':str,'Procedure':str,'Site':str,'Laterality':str,'Contrast':str})
     # Read the FHIR ConceptMap JSON file into a Python dictionary
-    template =  os.path.join('.','templates','ConceptMap-radiology-services-template.json')
+    template =  os.path.join('.',templates_path,'ConceptMap-radiology-services-template.json')
     print("Processing ConceptMap template...{0}".format(template))
     prop_modality =  "FocalProcedure"
     prop_site = "BodySite"
@@ -189,13 +216,13 @@ def build_concept_map(rrsfile,outdir,smart,version):
        meta = json.load(f)
      # Create a FHIR ConceptMap resource object
     cm = conceptmap.ConceptMap()
-    #cm.id = meta.get('id')
+    cm.id = meta.get('id')
     cm.status = meta.get('status')
     cm.name = meta.get('name')
     cm.title = meta.get('title')
     cm.description = meta.get('description')
     cm.publisher = meta.get('publisher')
-    cm.version = version or meta.get('version')
+    cm.version = meta.get('version')
     cm.url = meta.get('url')
 #    cm.contact = meta.get('contact')
     cm.copyright = meta.get('copyright')
@@ -276,7 +303,10 @@ def build_concept_map(rrsfile,outdir,smart,version):
     # Cleanup
     df.drop(df.index, inplace=True)
     if smart != None:
-        response = cm.create(smart.server)
+        if cm.id:
+            response = cm.update(smart.server)
+        else:
+            response = cm.create(smart.server)
         if response:
             return 201
         else:
@@ -286,7 +316,7 @@ def build_concept_map(rrsfile,outdir,smart,version):
 
 
 
-def build_codesystem_supplement(rrsfile,outdir,smart,version):
+def build_codesystem_supplement(rrsfile,outdir,smart,templates_path):
     """
     Build a SNOMED CT codesystem supplement of procedures, bodysite, laterality and 
     contrast for each single radiology service code 
@@ -296,7 +326,7 @@ def build_codesystem_supplement(rrsfile,outdir,smart,version):
     df=pd.read_csv(rrsfile,sep='\t',dtype={'Service':str,'Procedure':str,'Site':str,'Laterality':str,'Contrast':str})
     
     # Read the FHIR ConceptMap JSON file into a Python dictionary
-    template =  os.path.join('.','templates','CodeSystemSupplement-template.json')
+    template =  os.path.join('.',templates_path,'CodeSystemSupplement-template.json')
     print("Processing CodeSystem Supplement template...{0}".format(template))
     
     ## Drop any duplicate rows
@@ -312,12 +342,13 @@ def build_codesystem_supplement(rrsfile,outdir,smart,version):
     with open(template) as f:
         meta = json.load(f)
         cs = codesystem.CodeSystem()
+        cs.id = meta.get("id")
         cs.status = meta.get('status')
         cs.name = meta.get('name')
         cs.title = meta.get('title')
         cs.description = meta.get('description')
         cs.publisher = meta.get('publisher')
-        cs.version = version or meta.get('version')
+        cs.version = meta.get('version')
         cs.url = meta.get('url')
         cs.copyright = meta.get('copyright')
         cs.experimental = meta.get('experimental')
@@ -358,7 +389,10 @@ def build_codesystem_supplement(rrsfile,outdir,smart,version):
             json.dump(cs.as_json(), f, indent=2)
     
         if smart != None:
-            response = cs.create(smart.server)
+            if cs.id:
+                response = cs.update(smart.server)
+            else:
+                response = cs.create(smart.server)
             if response:
                 return 201
             else:
@@ -368,18 +402,25 @@ def build_codesystem_supplement(rrsfile,outdir,smart,version):
 
 ## Mainline
 ## Output the Valuesets and Conceptmap built from the RRS file    
-def run_main(rrsfile,outdir,endpoint,version):
+def run_main(rrsfile,outdir,endpoint,templates_path):
     smart=None
     if (endpoint != ""):
          smart = create_client(endpoint)
+    
     # Note, the template file order must match the valueset file order
     vs_files=create_vs_filepath(outdir)
-    templates=get_template_files()
+    logger.info(f'getting template files from {templates_path}')
+    templates=get_template_files(templates_path)
 
     for col in range(0,5):
-        print("{0} Processing template...{1}".format( col, templates[col]))
-        vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart,version)        
-    cm = build_concept_map(rrsfile,outdir,smart,version)
-    csupp = build_codesystem_supplement(rrsfile,outdir,smart,version)    
+        vs = build_valueset(col,templates[col],rrsfile,vs_files[col],smart)
+        msg = f'{col} Processed valueset template...{templates[col]}, returned {vs}'
+        logger.info(msg)
+        print(msg)
+
+    cm = build_concept_map(rrsfile,outdir,smart,templates_path)
+    logger.info(f'Processed ConceptMap template. Returned {cm}')      
+    #csupp = build_codesystem_supplement(rrsfile,outdir,smart,templates_path)    
+    #logger.info(f'Built CodeSystem Supplement, returned {csupp}')
     # Create custom per modality ValueSets
-    bsvs =  build_bodysite_valuesets(rrsfile,outdir,version) 
+    build_bodysite_valuesets(rrsfile,outdir,smart,templates_path)

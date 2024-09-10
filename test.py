@@ -8,6 +8,7 @@ from fhirclient.models import valueset as vs
 from fhirpathpy import evaluate
 
 endpoint = 'https://r4.ontoserver.csiro.au/fhir'
+#endpoint = 'http://localhost:8080/fhir'
 
 ##infiledefault=os.path.join(homedir,"data","rrs","in","xray-test.tsv")
 
@@ -42,7 +43,15 @@ class TestFetcher(unittest.TestCase):
         self.assertIn("1187246003",procs)
         # Check that CT Abdo is not in this list
         self.assertNotIn("169070004",procs)
-
+    def test_get_snomed_properties(self):
+        """
+        Check that the correct SNOMED properties are returned
+        """
+        rrs_df = fetcher.get_snomed_props("765041007")
+        sorted_props = rrs_df.sort_values(by=['TypeId'])
+        for index, row in sorted_props.iterrows():
+            if row["TypeId"] == 1:
+                self.assertIn('50408007',row["TargetValue"])
 
 class TestLighter(unittest.TestCase):  
         
@@ -54,9 +63,10 @@ class TestLighter(unittest.TestCase):
         smart=None
         if (endpoint != ""):
             smart = lighter.create_client(endpoint)
+        templates_path = 'templates'
         infile = os.path.join('.','test_data','rrs.txt')
         outfile = os.path.join('.','test_data','vs','service.json')
-        template = os.path.join('.','templates','ValueSet-radiology-services-template.json')
+        template = os.path.join('.',templates_path,'ValueSet-radiology-services-template.json')
         status = lighter.build_valueset(0,template,infile,outfile,smart)
         # Check that the ValueSet was created on the server
         self.assertEqual(status,201)
@@ -71,7 +81,7 @@ class TestLighter(unittest.TestCase):
         self.assertIn({"code":"961000087109"},concepts)
 
         # Test that the ValueSet resource is Valid        
-        validation_status= helpers.validate_resource(data,"ValueSet")
+        validation_status= helpers.validate_resource(data,"ValueSet",endpoint)
         self.assertEqual(validation_status,200)
 
 
@@ -93,7 +103,7 @@ class TestLighter(unittest.TestCase):
         # Test that concept map data is a resource of type ConceptMap
         self.assertEqual(data["resourceType"],"ConceptMap")
          # Test that the ConceptMap resource is Valid        
-        validation_status= helpers.validate_resource(data,"ConceptMap")
+        validation_status= helpers.validate_resource(data,"ConceptMap",endpoint)
         self.assertEqual(validation_status,200)
 
     def test_build_codesystem_supplement(self):
@@ -113,7 +123,7 @@ class TestLighter(unittest.TestCase):
         # Test that CodeSystem data is a resource of type CodeSystem
         self.assertEqual(data["resourceType"],"CodeSystem")
          # Test that the CodeSystem resource is Valid        
-        validation_status= helpers.validate_resource(data,"CodeSystem")
+        validation_status= helpers.validate_resource(data,"CodeSystem",endpoint)
         self.assertEqual(validation_status,200)
 
 if __name__ == '__main__':

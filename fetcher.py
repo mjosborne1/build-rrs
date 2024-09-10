@@ -1,6 +1,7 @@
-import subprocess
+import logging
 import requests
 import urllib 
+import csv
 import numpy as np
 import pandas as pd
 from urllib.parse import quote
@@ -10,8 +11,9 @@ import json
 from helpers import init,path_exists
 
 baseurl="https://r4.ontoserver.csiro.au/fhir"
+#baseurl="http://localhost:8080/fhir"
 system="http://snomed.info/sct"
-        
+logger = logging.getLogger(__name__)        
 
 ## Checkserver is up
 def check_terminology_server():
@@ -88,11 +90,32 @@ def read_focus_procedures():
     print(f'Fatal error: Procedures file {file_path} does not exist.')
     return None
   with open(file_path, 'r') as file:
-      for line in file:
-          code, description = line.strip().split(',')
+      reader = csv.reader(file)
+      for row in reader:
+          if row and row[0].startswith('#'):
+              continue
+          code, description = row
           data.append((code, description))
   return data
 
+
+##
+## read bodysite valueset id
+## read bodysite valueset name, valueset ids from csv keyed by ValueSet name into a dict
+def read_bodysite_vs_ids():
+  file_path = os.path.join('.','body_site_vs_id.txt')
+  data = {}
+  if not path_exists(file_path):
+    print(f'Fatal error: Procedures file {file_path} does not exist.')
+    return None
+  with open(file_path, 'r') as file:
+      reader = csv.reader(file)
+      for row in reader:
+          if row and row[0].startswith('#'):
+              continue
+          name, id = row
+          data[name] = id
+  return data
 
 
 ## procedure mapper 
@@ -252,16 +275,24 @@ Mainline
 def run_main(s2sfile,outdir):
   sep="\t"
   if not check_terminology_server():
-    print("Cannot continue as {0} appears to be down. 😭".format(baseurl))
+    msg="Cannot continue as {0} appears to be down. 😭".format(baseurl)
+    logger.error(msg)
+    print(msg)
     exit
+  logger.info(f'create {outdir}')  
   files=create_filepath(s2sfile,outdir)
   dupes = []
   # Get Left sided body structures
+  logger.info(f'Get Left sided Body Structures')
   left_list=get_body_structures("left")
   # Get Right sided body structures
+  logger.info(f'Get Right sided Body Structures')
   right_list=get_body_structures("right")
-  # Get list of focus procedures 
+  # Get list of focus procedures
+  logger.info(f'Get focus procedures')   
   focus_procedures=read_focus_procedures()  
+  # Read in the Snap2SNOMED File
+  logger.info(f'Process Snap2SNOMED file: {files["s2sfile"]}')
   data=pd.read_csv(files["s2sfile"],sep='\t',dtype={'Target code': str})
   fhRRS=init(files["rrsfile"])
   fhRRS.write("%s%s%s%s%s%s%s%s%s\n" % ("Service",sep,"Procedure",sep,"Site",sep,"Laterality",sep,"Contrast"))
@@ -271,14 +302,19 @@ def run_main(s2sfile,outdir):
         if row["Target code"] != "":
           order_code = str(row["Target code"])
           if order_code in dupes:
-            print(f'...duplicate code detected at index:{index}... {order_code}, ignoring')
+            msg=f'...duplicate code detected at index:{index}... {order_code}, ignoring'
+            logger.warning(msg)
+            print(msg)
             continue
           else:
+            logger.info(f'...Get SCT props {order_code}')
             rrs_df = get_snomed_props(order_code)  
             # Take the initial dataframes and further expand the body structure to add laterality
+            logger.info(f'...Expand body site for {order_code}')
             expand_body_site(rrs_df,left_list,right_list,focus_procedures,fhRRS)
             dupes.append(order_code)
   fhRRS.close()
+  logger.info(f'Finished building RRS flat file: {files["rrsfile"]}') 
   return files["rrsfile"]
        
 

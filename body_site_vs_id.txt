@@ -1,0 +1,9 @@
+# VS Name, VS id
+X-ray,49c6749d-945a-427c-9db1-92740367da34
+Angiography,d0ec7bba-5259-45bf-9bf1-b5d6e95b6d44
+CT,ee9e62b9-d72e-4a09-80aa-04f161ca8844
+Fluoroscopy,309105e3-30d2-474d-92cb-19f1d6ddf532
+MRI,f6db7a35-c5c1-4387-8625-b05b50124020
+Plain-X-Ray,65bdeb1d-ee3c-4727-991c-0e21996bed46
+Ultrasound-imaging,72f3be6b-8ec6-4c60-ae14-985583efe620
+X-ray-with-contrast,85b15e12-ce4e-4aa3-b452-1a844feee4e3
