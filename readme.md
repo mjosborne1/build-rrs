@@ -4,11 +4,11 @@
 - A file path for the output of the process , on Windows this might be C:\data\rrs\out 
   on Mac/Linux it will be /home/user/data/rrs/out or similar where `user` is your account name
 
-### How to install this script (Weirdly have to manually install a few packages also)
-   * `pip install -r requirements.txt`
-   * `pip install fhirclient fhirpathpy numpy`
-   * `virtualenv env`
+### How to install this script
+   * `virtualenv .venv`
    * `source env/bin/activate`
+   * `pip install -r requirements.txt`
+
 
 ### How to run this script
    * `python main.py -i <S2S map file Catalogue to SCT> -o <output folder>`
